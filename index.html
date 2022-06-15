@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+<div id="myapp">
+    <div class="container">
+        <div class="row">
+            <p class="jumbotron">login
+                <input type="text" v-model="user">vous êtes connecter en tant que {{user}}
+            </p> 
+        </div>
+        <h1  v-bind:class="affichage">MENU</h1>
+        <div class="row">
+            
+    <fiche-produit></fiche-produit>
+            <div class="col-3" v-for="feed in food">
+                <p class="jumbotron">
+                    {{feed}}
+                    <button v-on:click="commander(feed)">commander</button>
+                </p>
+
+            </div>
+        </div>
+        <h1 v-if="commande.length > 0">liste commande</h1>
+        <fiche-produit v-for="commandes in commande"> {{commandes}}</fiche-produit>
+    </div>
+</div>
+<script>
+
+    Vue.component('fiche-produit',{
+        template: '<p class="jumbotron">test</p>'
+    })
+    var app = new Vue({
+
+            el: "#myapp",
+            data: {
+                user: "sarah",
+                food: ["pizza", "tacos", "burger"],
+                commande:[],
+                affichage:"display-1"
+            },
+            methods: {
+                commander: function(feed){
+                    this.commande.push(feed);
+
+                },
+            }
+    })
+</script>
+    </body>
+</html>
